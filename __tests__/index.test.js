@@ -53,4 +53,10 @@ describe('Image Info', () => {
     )
     expect(info).toMatchSnapshot()
   })
+  it('doesnt throw on connection error', async () => {
+    const info = await getImageInfo(
+      'http://localhost:6000/images/Valeria_Gusmao.jpg'
+    )
+    expect(info).toBeNull()
+  })
 })
