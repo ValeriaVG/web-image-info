@@ -3,6 +3,7 @@ const {
   getTinyBase64,
   getImageInfo,
   getDominantColor,
+  getImageSize,
 } = require('../.')
 
 describe('Image Info', () => {
@@ -35,7 +36,7 @@ describe('Image Info', () => {
     const image = await getImage(
       'https://starflow.com/images/Valeria_Gusmao.jpg'
     )
-    const { width, height } = require('image-size')(image)
+    const { width, height } = await getImageSize(image)
     expect(width).toBe(2600)
     expect(height).toBe(2600)
   })

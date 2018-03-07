@@ -43,18 +43,24 @@ const getDominantColor = async image => {
   return '#' + rgbHex(red, green, blue)
 }
 
+const getImageSize = image =>
+  sharp(image)
+    .metadata()
+    .then(meta => {
+      const { width, height } = meta
+      return { width, height }
+    })
+
 const getImageInfo = async (url, errorHandler = console.error) => {
   try {
     const image = await getImage(url).catch(errorHandler)
     if (!image) return null
-    const size = require('image-size')(image)
-    if (!size) return null
-    const { width, height } = size
+
     const base64 = await getTinyBase64(image).catch(errorHandler)
     if (!base64) return null
     const color = await getDominantColor(image).catch(errorHandler)
-
-    return { url, base64, color, width, height }
+    const size = await getImageSize(image).catch(errorHandler)
+    return { url, base64, color, ...size }
   } catch (error) {
     errorHandler(error)
     return null
@@ -65,4 +71,5 @@ module.exports = {
   getTinyBase64,
   getDominantColor,
   getImageInfo,
+  getImageSize,
 }
