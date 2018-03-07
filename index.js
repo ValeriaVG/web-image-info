@@ -43,26 +43,29 @@ const getDominantColor = async image => {
   return '#' + rgbHex(red, green, blue)
 }
 
-const getImageSize = image =>
-  sharp(image)
-    .metadata()
-    .then(meta => {
-      const { width, height } = meta
-      return { width, height }
-    })
+const getImageSize = async image => {
+  try {
+    const { width, height } = await sharp(image).metadata()
+    return { width, height }
+  } catch (err) {
+    console.log('thowed', err)
+    //console.log(err)
+    return {}
+  }
+}
 
 const getImageInfo = async (url, errorHandler = console.error) => {
   try {
     const image = await getImage(url).catch(errorHandler)
     if (!image) return null
-
     const base64 = await getTinyBase64(image).catch(errorHandler)
     if (!base64) return null
     const color = await getDominantColor(image).catch(errorHandler)
     const size = await getImageSize(image).catch(errorHandler)
     return { url, base64, color, ...size }
   } catch (error) {
-    errorHandler(error)
+    console.log('threw out', error)
+    //errorHandler(error)
     return null
   }
 }

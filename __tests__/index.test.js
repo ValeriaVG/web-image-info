@@ -32,6 +32,7 @@ describe('Image Info', () => {
     )
     expect(Buffer.isBuffer(image)).toBe(true)
   })
+
   it('can get image size', async () => {
     const image = await getImage(
       'https://starflow.com/images/Valeria_Gusmao.jpg'
@@ -39,7 +40,12 @@ describe('Image Info', () => {
     const { width, height } = await getImageSize(image)
     expect(width).toBe(2600)
     expect(height).toBe(2600)
+    const img = await getImage(
+      'http://assets.starflow.co/stars/photos/25d8194f4eba4865dfe4cc1045544cb3847b3474a43332ba.jpg'
+    )
+    const meta = await getImageSize(img)
   })
+
   it('can get image base64', async () => {
     const image = await getImage(
       'https://starflow.com/images/Valeria_Gusmao.jpg'
@@ -60,6 +66,12 @@ describe('Image Info', () => {
     expect(info).toMatchSnapshot()
     const info2 = await getImageInfo('https://starflow.com/images/app-2.png')
     expect(info2).toMatchSnapshot()
+
+    const info3 = await getImageInfo(
+      'http://assets.starflow.co/stars/photos/25d8194f4eba4865dfe4cc1045544cb3847b3474a43332ba.jpg'
+    )
+    expect(info3).toBeTruthy()
+    expect(info3).toMatchSnapshot()
   })
   it('doesnt throw on connection error', async () => {
     const info = await getImageInfo(
