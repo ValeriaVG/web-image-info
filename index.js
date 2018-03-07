@@ -22,19 +22,26 @@ const getImage = async url => {
       })
   })
 }
-const getTinyBase64 = (imageBuffer, h = 16, w = 16) => {
-  return new Promise((resolve, reject) => {
-    sharp(imageBuffer)
+const getTinyBase64 = async (
+  imageBuffer,
+  h = 32,
+  w = 32,
+  errorHandler = console.error
+) => {
+  try {
+    const buffer = await sharp(imageBuffer)
       .resize(h, w, {
         kernel: sharp.kernel.nearest,
       })
       .background('black')
       .embed()
       .toBuffer('JPG')
-      .then(buffer => {
-        resolve('data:image/jpeg;base64,' + buffer.toString('base64'))
-      })
-  })
+
+    return 'data:image/jpeg;base64,' + buffer.toString('base64')
+  } catch (err) {
+    errorHandler(err)
+    return null
+  }
 }
 
 const getDominantColor = async image => {
@@ -43,13 +50,12 @@ const getDominantColor = async image => {
   return '#' + rgbHex(red, green, blue)
 }
 
-const getImageSize = async image => {
+const getImageSize = async (image, errorHandler = console.error) => {
   try {
     const { width, height } = await sharp(image).metadata()
     return { width, height }
   } catch (err) {
-    console.log('thowed', err)
-    //console.log(err)
+    errorHandler(err)
     return {}
   }
 }
@@ -58,14 +64,16 @@ const getImageInfo = async (url, errorHandler = console.error) => {
   try {
     const image = await getImage(url).catch(errorHandler)
     if (!image) return null
-    const base64 = await getTinyBase64(image).catch(errorHandler)
-    if (!base64) return null
-    const color = await getDominantColor(image).catch(errorHandler)
-    const size = await getImageSize(image).catch(errorHandler)
+    const base64 = await getTinyBase64(image, 32, 32, errorHandler).catch(
+      errorHandler
+    )
+    const color = await getDominantColor(image, errorHandler).catch(
+      errorHandler
+    )
+    const size = await getImageSize(image, errorHandler).catch(errorHandler)
     return { url, base64, color, ...size }
   } catch (error) {
-    console.log('threw out', error)
-    //errorHandler(error)
+    errorHandler(error)
     return null
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "web-image-info",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description":
     "Checks if image exists, returns it's width, height and base64 thumbnail & dominant color",
   "main": "index.js",
