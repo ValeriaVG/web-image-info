@@ -1,0 +1,22 @@
+{
+  "name": "web-image-info",
+  "version": "1.0.0",
+  "description":
+    "Checks if image exists, returns it's width, height and base64 thumbnail ",
+  "main": "index.js",
+  "repository": "git@github.com:ValeriaVG/web-image-info.git",
+  "author": "ValeriaVG <valeria.viana.gusmao@gmail.com>",
+  "license": "GPL-3.0",
+  "private": false,
+  "devDependencies": {
+    "jest": "^22.4.2"
+  },
+  "scripts": {
+    "test": "jest --watchAll",
+    "coverage": "jest --coverage --watchAll"
+  },
+  "dependencies": {
+    "image-size": "^0.6.2",
+    "sharp": "^0.20.0"
+  }
+}

@@ -1,39 +1,11 @@
-# web-image-info
+// Jest Snapshot v1, https://goo.gl/fbAQLP
 
-Checks if image exists, returns it's width, height and base64 thumbnail
-
-* Works with both http & https images
-* Rejects with response statusMessage if image is not available
-* Uses _sharp_ for resizing (which is very fast)
-
-## Installation
-
-```
-yarn add web-image-info
-```
-
-OR
-
-```
-npm -i web-image-info
-```
-
-## Use
-
-```js
-const {getImageInfo } = require('web-image-info')
-const info = await getImageInfo(
-      'https://starflow.com/images/Valeria_Gusmao.jpg'
-    )
-console.log(info)
-/*
- Output:
- {
+exports[`Image Info can return it all 1`] = `
+Object {
   "base64": "data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAQABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAABAUGCP/EACMQAAICAQMEAwEAAAAAAAAAAAECAxEEAAUSBiExURMUQfD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AyzjoJciND4ZgD30/652PG2LcsWHDaYxT44m4zFSynkynupqjwseDRFi9T+O6xzxvInyIrAsl1yHq/wA0d1Bu0u87h9iRFiREWKKJSSI41FBbP96odtB//9k=",
   "height": 2600,
   "type": "jpg",
   "url": "https://starflow.com/images/Valeria_Gusmao.jpg",
   "width": 2600,
 }
-*/
-```
+`;
