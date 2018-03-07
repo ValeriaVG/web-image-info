@@ -3,9 +3,19 @@
 exports[`Image Info can return it all 1`] = `
 Object {
   "base64": "data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAQABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAABAUGCP/EACMQAAICAQMEAwEAAAAAAAAAAAECAxEEAAUSBiExURMUQfD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AyzjoJciND4ZgD30/652PG2LcsWHDaYxT44m4zFSynkynupqjwseDRFi9T+O6xzxvInyIrAsl1yHq/wA0d1Bu0u87h9iRFiREWKKJSSI41FBbP96odtB//9k=",
+  "color": "#0b0b0b",
   "height": 2600,
-  "type": "jpg",
   "url": "https://starflow.com/images/Valeria_Gusmao.jpg",
   "width": 2600,
+}
+`;
+
+exports[`Image Info can return it all 2`] = `
+Object {
+  "base64": "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsSAAALEgHS3X78AAABtUlEQVQ4y42Q30uTURjHn73yqutivM4gwzGHzPXuB0QZps4pvducusBtrxfh1RpqKCIihKjUlVdd72LQ/yAI3pR5oahTzKBY1EUYlLvrVgiCfXveY5pBnnngA9/ne875HDhERDhj3BzBmGkyI6c5YyKXzkBVVbibXaK/eP4PfwczHsfsxARmcjlMZ7NIGQZS0Rg0TUPSiCLRPyQXbFD0Ut6QAWtdSbBFcexSP4qUEFh5m7t1lkgFmxQTFw5pEO9pCCVKCj5wfsfdPu9JBVss2ONDfrqDT/QQAVs7jmzD+Mz5Juk4oAG5YEXpg64EcZsJKSEcKIN4y+woCbxSHmCtJioXvFDvwVvvR6vqQ76+C95aP5ZrIyjU3YdH1UUvFTy26/DVBM6ZsgeZECaZJ9eCGLMH5IIeR8s/gl6HBxGml/sI0+NwywUeZxNaGm6g/P1YZGt5eL6IVOBsvI7Zla/nLLZ1C+a9nfhCLkFVAX4B+dcl/OTXn7d1YkEP4+X4HI4UNz66vNUFJ99W8ePwKQrFMpZ8YcGzWx3i9UqlUl3QdHcANn0UWiAtskWm49HVBf/7A4vL/uA3RdaISJkBtyUAAAAASUVORK5CYII=",
+  "color": "#792748",
+  "height": 2668,
+  "url": "https://starflow.com/images/app-2.png",
+  "width": 1500,
 }
 `;

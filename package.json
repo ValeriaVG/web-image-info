@@ -1,8 +1,8 @@
 {
   "name": "web-image-info",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description":
-    "Checks if image exists, returns it's width, height and base64 thumbnail ",
+    "Checks if image exists, returns it's width, height and base64 thumbnail & dominant color",
   "main": "index.js",
   "repository": "git@github.com:ValeriaVG/web-image-info.git",
   "author": "ValeriaVG <valeria.viana.gusmao@gmail.com>",
@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "image-size": "^0.6.2",
+    "rgb-hex": "^2.1.0",
     "sharp": "^0.20.0"
   }
 }

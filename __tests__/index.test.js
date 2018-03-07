@@ -1,4 +1,9 @@
-const { getImage, getTinyBase64, getImageInfo } = require('../.')
+const {
+  getImage,
+  getTinyBase64,
+  getImageInfo,
+  getDominantColor,
+} = require('../.')
 
 describe('Image Info', () => {
   it('can check if image exists', async () => {
@@ -52,6 +57,8 @@ describe('Image Info', () => {
       'https://starflow.com/images/Valeria_Gusmao.jpg'
     )
     expect(info).toMatchSnapshot()
+    const info2 = await getImageInfo('https://starflow.com/images/app-2.png')
+    expect(info2).toMatchSnapshot()
   })
   it('doesnt throw on connection error', async () => {
     const info = await getImageInfo(
