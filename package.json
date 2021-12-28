@@ -12,8 +12,8 @@
     "jest": "^27.4.5"
   },
   "scripts": {
-    "test": "jest --watchAll",
-    "coverage": "jest --coverage --watchAll"
+    "test": "jest",
+    "cover": "jest --coverage"
   },
   "dependencies": {
     "image-size": "^1.0.0",
