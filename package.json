@@ -9,15 +9,14 @@
   "license": "GPL-3.0",
   "private": false,
   "devDependencies": {
-    "jest": "^22.4.2"
+    "jest": "^27.4.5"
   },
   "scripts": {
     "test": "jest --watchAll",
     "coverage": "jest --coverage --watchAll"
   },
   "dependencies": {
-    "image-size": "^0.6.2",
-    "rgb-hex": "^2.1.0",
-    "sharp": "^0.20.0"
+    "image-size": "^1.0.0",
+    "sharp": "^0.29.3"
   }
 }

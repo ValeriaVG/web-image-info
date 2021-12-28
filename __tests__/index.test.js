@@ -6,77 +6,101 @@ const {
   getImageSize,
 } = require('../.')
 
+const imageURL = "https://i.picsum.photos/id/869/200/200.jpg?hmac=Eqnjw4kAS1sFTick74KSN6CBN01wmQg8OpxqbGtdyCU"
+
 describe('Image Info', () => {
   it('can check if image exists', async () => {
     const image = await getImage(
-      'https://starflow.com/images/Valeria_Gusmao.jpg'
+      imageURL
     )
     expect(image).toBeTruthy()
-    try {
-      const wrongImage = await getImage(
-        'https://google.com/images/this_file_is_a_myth.jpg'
-      )
-      expect(wrongImage).toBeFalsy()
-    } catch (error) {
-      expect(error).toBe('Not Found')
-    }
-
-    const notSequreImage = await getImage(
-      'http://starflow.com/images/Valeria_Gusmao.jpg'
+    expect(await getImage('http://picsum.photos/200/300')).toBeTruthy()
+    await expect(getImage(
+      'https://google.com/images/this_file_is_a_myth.jpg')).
+      rejects.toMatchInlineSnapshot(`"Not Found"`)
+  })
+  it('can get dominant color', async () => {
+    const image = await getImage(
+      imageURL
     )
-    expect(notSequreImage).toBeTruthy()
+    expect(image).toBeTruthy()
+    const color = await getDominantColor(image)
+    expect(color).toBe('#333b4a')
+    await expect(getDominantColor(Buffer.from([]))).rejects.toMatchInlineSnapshot(`[Error: Input Buffer is empty]`)
   })
   it('can get image buffer', async () => {
     const image = await getImage(
-      'https://starflow.com/images/Valeria_Gusmao.jpg'
+      imageURL
     )
     expect(Buffer.isBuffer(image)).toBe(true)
   })
 
   it('can get image size', async () => {
     const image = await getImage(
-      'https://starflow.com/images/Valeria_Gusmao.jpg'
+      'https://picsum.photos/200/300'
     )
+    expect(image).toBeTruthy()
     const { width, height } = await getImageSize(image)
-    expect(width).toBe(2600)
-    expect(height).toBe(2600)
+    expect(width).toBe(200)
+    expect(height).toBe(300)
     const img = await getImage(
-      'http://assets.starflow.co/stars/photos/25d8194f4eba4865dfe4cc1045544cb3847b3474a43332ba.jpg'
+      imageURL
     )
+    expect(img).toBeTruthy()
     const meta = await getImageSize(img)
+    expect(meta).toMatchInlineSnapshot(`
+Object {
+  "height": 200,
+  "width": 200,
+}
+`)
   })
 
   it('can get image base64', async () => {
     const image = await getImage(
-      'https://starflow.com/images/Valeria_Gusmao.jpg'
+      imageURL
     )
     const base64 = await getTinyBase64(image, 32, 32)
-    expect(base64).toBe(
-      'data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAgACADASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAUHAwYI/8QAIxAAAQMDBAMBAQAAAAAAAAAAAQIDBAAFERIhMUEGBxOB8P/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDyqa2gxlzJTcdrGtw4GeKwpjZXfg+t5C9DraSps6Qd+uaBp5R4bdfHIcaXOQlUaRsh1s5Tq50nsH+6OOaq3exZUZ31/LQ9cTJR9o5iNhCdKHCnKgFJG+305PWBjuI0BTKxR2JM9tuTKbioJGXHOAP3altFBQPZl7gS4FstcB8SFRsqWtpWGUjGEpSBsTyc9ZxnkCf0UUH/2Q=='
-    )
+    expect(base64).toMatchInlineSnapshot(`"data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAgACADASIAAhEBAxEB/8QAGgAAAQUBAAAAAAAAAAAAAAAABgECAwUHBP/EACkQAAEEAQIFAgcAAAAAAAAAAAEAAgMRBCEyBRIxQVEU4SJSYXGRobH/xAAXAQADAQAAAAAAAAAAAAAAAAACAwQF/8QAGxEBAAMAAwEAAAAAAAAAAAAAAQACEQMjQSH/2gAMAwEAAhEDEQA/AMdmwmVbTd9fomeiAF1+leQQxvGrbCU4pbsojxS0sJBV8g87DUbsYN7IjOPJW3X+qGTDJOoQuRgMhweJNczmc1zQNNaVgMxnUuA7AVuPgflBOfFJkfDHOYoiK5AwHt5XHFwsgnmynkEfL7qO1uRMGVVpxjqbNJx82NoLwWnsdbo17pxzcYCn0HIEgjbDjvhBc5r95cd33TuYhgaNGjoAh7PWM68+E//Z"`)
     const smallerBase64 = await getTinyBase64(image, 16, 16)
-    expect(smallerBase64).toBe(
-      'data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAQABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAABAUGCP/EACMQAAICAQMEAwEAAAAAAAAAAAECAxEEAAUSBiExURMUQfD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AyzjoJciND4ZgD30/652PG2LcsWHDaYxT44m4zFSynkynupqjwseDRFi9T+O6xzxvInyIrAsl1yHq/wA0d1Bu0u87h9iRFiREWKKJSSI41FBbP96odtB//9k='
-    )
+    expect(smallerBase64).toMatchInlineSnapshot(`"data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAQABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAMH/8QAIxAAAgEDAQkAAAAAAAAAAAAAAQIDABEhBQQGEhUiUXGBof/EABUBAQEAAAAAAAAAAAAAAAAAAAME/8QAGREAAgMBAAAAAAAAAAAAAAAAAAECAyFB/9oADAMBAAIRAxEAPwDKeVq44wose1Rk0rF1U+xRo9b2mEiNYBKAMu0gUE+KYu8UixqrQqTbPVcD5VTvXEDGjNZ//9k="`)
+    await expect(getTinyBase64(Buffer.from([]), 32, 32)).rejects.toMatchInlineSnapshot(`[Error: Input Buffer is empty]`)
   })
   it('can return it all', async () => {
     const info = await getImageInfo(
-      'https://starflow.com/images/Valeria_Gusmao.jpg'
+      imageURL
     )
     expect(info).toMatchSnapshot()
-    const info2 = await getImageInfo('https://starflow.com/images/app-2.png')
+    const info2 = await getImageInfo('https://i.picsum.photos/id/315/200/300.jpg?hmac=C67WPcnxkaV_SPowHi-8nl3yoODZSBZqnoOdBObP5Ys')
     expect(info2).toMatchSnapshot()
 
     const info3 = await getImageInfo(
-      'http://assets.starflow.co/stars/photos/25d8194f4eba4865dfe4cc1045544cb3847b3474a43332ba.jpg'
+      'https://i.picsum.photos/id/135/200/200.jpg?hmac=uaxfwtA3aJhzzHN36hg2MJi5Rl8nbuqAsipKDDj2seU'
     )
     expect(info3).toBeTruthy()
     expect(info3).toMatchSnapshot()
   })
-  it('doesnt throw on connection error', async () => {
-    const info = await getImageInfo(
-      'http://localhost:6000/images/Valeria_Gusmao.jpg'
-    )
-    expect(info).toBeNull()
+  it('throw on connection error', async () => {
+    await expect(getImageInfo(
+      'http://localhost:6000/images/img.jpg')).
+      rejects.toMatchInlineSnapshot(`[Error: connect ECONNREFUSED 127.0.0.1:6000]`)
+  })
+  it('throw on too many redirects', async () => {
+    jest.mock('http', () => {
+      return {
+        get: (url, cb) => {
+          cb({
+            statusCode: 301,
+            headers: {
+              location: url
+            },
+          })
+          return { on: () => { }, }
+        }
+      }
+    })
+    await expect(getImageInfo(
+      'http://localhost:6000/images/img.jpg')).
+      rejects.toMatchInlineSnapshot(`"Too many redirect"`)
   })
 })

@@ -1,10 +1,11 @@
 # web-image-info
 
-Checks if image exists, returns it's width, height and base64 thumbnail and it's dominant color
+Checks if image exists, returns it's width, height and base64 thumbnail and it's
+dominant color
 
-* Works with both http & https images
-* Rejects with response statusMessage if image is not available
-* Uses _sharp_ for resizing (which is very fast)
+- Works with both http & https images
+- Follows redirects
+- Uses _sharp_ for resizing (which is very fast)
 
 ## Installation
 
@@ -21,19 +22,19 @@ npm -i web-image-info
 ## Use
 
 ```js
-const {getImageInfo } = require('web-image-info')
+const { getImageInfo } = require("web-image-info");
 const info = await getImageInfo(
-      'https://starflow.com/images/Valeria_Gusmao.jpg'
-    )
-console.log(info)
+  "https://picsum.photos/200/300",
+);
+console.log(info);
 /*
  Output:
  {
-  "base64": "data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAQABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAABAUGCP/EACMQAAICAQMEAwEAAAAAAAAAAAECAxEEAAUSBiExURMUQfD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AyzjoJciND4ZgD30/652PG2LcsWHDaYxT44m4zFSynkynupqjwseDRFi9T+O6xzxvInyIrAsl1yHq/wA0d1Bu0u87h9iRFiREWKKJSSI41FBbP96odtB//9k=",
-  "color": "#0b0b0b",
-  "height": 2600,
-  "url": "https://starflow.com/images/Valeria_Gusmao.jpg",
-  "width": 2600,
+  url: 'https://picsum.photos/200/300',
+  base64: 'data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAgACADASIAAhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAABAUGAwf/xAArEAACAgEEAQIDCQAAAAAAAAABAgMRBAASITEFB1ETQWEGFRYiJnKCobH/xAAYAQACAwAAAAAAAAAAAAAAAAAEBgEFB//EACURAAEDAgQHAQAAAAAAAAAAAAIAAREDBBMhMVEFEjJBgaHR8f/aAAwDAQACEQMRAD8AzeHkRTz5MAilUoSEkYhUYjvm9Jxs+WXIyEmgaCVCFPxas+xBBo9aFj+PywFkEG6OQsyneOfzUe/nx/mkz4mTBU+THsE3Ccg3XZ4P1/rVFiZrQwICLkYs9kmQRzowZkBs8nknU9fht8a0O1Adp3AB6NGub12c7UJJYniq0FVZt4UWos9/XvUYsMiGoyvXPSSIfhrHDKzqpdQf5ajer8MP3v40nIWAJGxtuib61a9LI/0ug2ghZH7/AHHWa9ZUhTyGHagqI2brs8aIO4crcacd/v1LFtbs3EzMXjXxH4shOLiQrICrjllN3pKfZ3zDRb4fF+QlikAZGXGcqwPRBr21DhdpjEIDT0Kh20XBO2wb9yBVc2eq5TP56bHVFx/K5bBRtZBIwWOh8jfI5rj29uSMFGev0mOpcu2VN2nR5naV/9k=',
+  color: '#b95a54',
+  width: 200,
+  height: 300
 }
 */
 ```
